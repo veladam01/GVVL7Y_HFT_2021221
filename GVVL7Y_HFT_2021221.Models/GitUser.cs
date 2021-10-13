@@ -21,7 +21,9 @@ namespace GVVL7Y_HFT_2021221.Models
         [Required]
         public DateTime Registered { get; set; }
 
-        [NotMapped] 
+        [NotMapped]
         public virtual ICollection<GitCommit> Commits { get; set; }
+        [NotMapped]
+        public virtual ICollection<GitRepo> Repos{ get; set; }
     }
 }
