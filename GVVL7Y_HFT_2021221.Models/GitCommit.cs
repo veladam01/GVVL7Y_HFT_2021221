@@ -12,6 +12,7 @@ namespace GVVL7Y_HFT_2021221.Models
     public class GitCommit
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get;  set; }
         [NotMapped]
         public virtual GitUser User { get; set; }

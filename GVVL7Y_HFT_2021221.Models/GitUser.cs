@@ -13,6 +13,7 @@ namespace GVVL7Y_HFT_2021221.Models
     public class GitUser
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get;  set; }
         [Required]
         public string Name { get;  set; }
