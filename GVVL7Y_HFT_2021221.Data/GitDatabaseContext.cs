@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GVVL7Y_HFT_2021221.Data
 {
-    class GitDatabaseContext:DbContext
+    public class GitDatabaseContext:DbContext
     {
-        public virtual DbSet<GitRepo> GitRepos { get; set; }
-        public virtual DbSet<GitCommit> GitCommits { get; set; }
-        public virtual DbSet<GitUser> GitUsers { get; set; }
+        #region Fields
+        public virtual DbSet<GitRepo> Repositories { get; set; }
+        public virtual DbSet<GitCommit> Commits { get; set; }
+        public virtual DbSet<GitUser> Users { get; set; }
+        #endregion
 
         public GitDatabaseContext()
         {
@@ -31,14 +33,7 @@ namespace GVVL7Y_HFT_2021221.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            GitUser veladam01 = new GitUser() { ID = 1, Name = "veladam01", EmailContact = "veladam01@gmail.com", Registered = Convert.ToDateTime("2021-10-04") };
-            GitUser krakenattack = new GitUser() { ID = 2, Name = "KrakenAttack",  Registered = Convert.ToDateTime("2020-01-01") };
-            //GitUser kovi = new GitUser() { ID = 3, Name = "Kovács András", EmailContact = "kovacs.andras@nik.uni-obuda.hu", Registered = Convert.ToDateTime("2018-09-01") };
-
-            GitRepo GVVL7Y_HFT_2021221 = new GitRepo() { ID = 1, Name = "GVVL7Y_HFT_2021221", OwnerID = veladam01.ID, Created = Convert.ToDateTime("2021-10-04") };
-            GitRepo dayofdeath = new GitRepo() { ID = 3, Name = "Day Of Death Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2020-04-20") };
-            GitRepo riseofundead = new GitRepo() { ID = 2, Name = "Rise of Undead Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2019-06-09") };
-
+            #region FluentAPI
             //FluentAPI, not sure if needed
             modelBuilder.Entity<GitCommit>(entity =>
             {
@@ -51,7 +46,7 @@ namespace GVVL7Y_HFT_2021221.Data
                 .WithMany(repos => repos.Commits)
                 .HasForeignKey(target => target.TargetRepositoryID)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-                
+
             });
 
             /*modelBuilder.Entity<GitUser>(entity =>
@@ -72,6 +67,15 @@ namespace GVVL7Y_HFT_2021221.Data
             }
             );
             //FluentAPI end
+            #endregion
+            #region DbSeed
+            GitUser veladam01 = new GitUser() { ID = 1, Name = "veladam01", EmailContact = "veladam01@gmail.com", Registered = Convert.ToDateTime("2021-10-04") };
+            GitUser krakenattack = new GitUser() { ID = 2, Name = "KrakenAttack",  Registered = Convert.ToDateTime("2020-01-01") };
+            //GitUser kovi = new GitUser() { ID = 3, Name = "Kovács András", EmailContact = "kovacs.andras@nik.uni-obuda.hu", Registered = Convert.ToDateTime("2018-09-01") };
+
+            GitRepo GVVL7Y_HFT_2021221 = new GitRepo() { ID = 1, Name = "GVVL7Y_HFT_2021221", OwnerID = veladam01.ID, Created = Convert.ToDateTime("2021-10-04") };
+            GitRepo dayofdeath = new GitRepo() { ID = 3, Name = "Day Of Death Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2020-04-20") };
+            GitRepo riseofundead = new GitRepo() { ID = 2, Name = "Rise of Undead Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2019-06-09") };
 
             modelBuilder.Entity<GitUser>().HasData(veladam01, krakenattack);
             modelBuilder.Entity<GitRepo>().HasData(GVVL7Y_HFT_2021221, riseofundead, dayofdeath);
@@ -131,6 +135,7 @@ namespace GVVL7Y_HFT_2021221.Data
                     When = Convert.ToDateTime("2020. 04. 20.")
                 }
                 );
+            #endregion
         }
     }
 }
