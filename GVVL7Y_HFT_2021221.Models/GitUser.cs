@@ -26,5 +26,11 @@ namespace GVVL7Y_HFT_2021221.Models
         public virtual ICollection<GitCommit> Commits { get; set; }
         [NotMapped]
         public virtual ICollection<GitRepo> Repos{ get; set; }
+
+        public GitUser()
+        {
+            Commits = new HashSet<GitCommit>();
+            Repos = new HashSet<GitRepo>();
+        }
     }
 }
