@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Repository
 {
-    class GitRepoRepository : IGitRepoRepository
+    public class GitRepoRepository : IGitRepoRepository
     {
         GitDatabaseContext context;
 
