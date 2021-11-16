@@ -20,8 +20,8 @@ namespace GVVL7Y_HFT_2021221.Models
         public virtual GitUser Owner { get; set; }
         [ForeignKey(nameof(Owner))]
         public int OwnerID { get;  set; }
-        [Required]
-        public DateTime Created { get; set; }
+        //[Required]
+        //public DateTime Created { get; set; }
 
         [NotMapped] 
         public virtual ICollection<GitCommit> Commits { get; set; }

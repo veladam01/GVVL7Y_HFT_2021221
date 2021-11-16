@@ -19,8 +19,8 @@ namespace GVVL7Y_HFT_2021221.Models
         public string Name { get;  set; }
         
         public string EmailContact { get;  set; }
-        [Required]
-        public DateTime Registered { get; set; }
+        //[Required]
+        //public DateTime Registered { get; set; }
 
         [NotMapped]
         public virtual ICollection<GitCommit> Commits { get; set; }

@@ -26,8 +26,8 @@ namespace GVVL7Y_HFT_2021221.Models
         public int TargetRepositoryID { get;  set; }
         
         public string CommitMessage { get;  set; }
-        [Required]
-        public DateTime When { get; set; }
+        //[Required]
+        //public DateTime When { get; set; }
 
     }
 }
