@@ -60,7 +60,7 @@ namespace GVVL7Y_HFT_2021221.Repository
                 old.TargetRepositoryID = gitCommit.TargetRepositoryID;
                 old.CommiterID = gitCommit.CommiterID;
                 old.CommitMessage = gitCommit.CommitMessage;
-                old.When = gitCommit.When;
+                //old.When = gitCommit.When;
                 context.SaveChanges();
 
             }

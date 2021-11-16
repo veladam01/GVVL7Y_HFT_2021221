@@ -57,7 +57,7 @@ namespace GVVL7Y_HFT_2021221.Repository
             GitRepo old = ReadOne(gitRepo.ID);
             if (old != null)
             {
-                old.Created = gitRepo.Created;
+                //old.Created = gitRepo.Created;
                 old.Name = gitRepo.Name;
                 old.OwnerID = gitRepo.OwnerID;
                 context.SaveChanges();

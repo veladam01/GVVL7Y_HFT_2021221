@@ -57,7 +57,7 @@ namespace GVVL7Y_HFT_2021221.Repository
             {
                 old.Name = gitUser.Name;
                 old.EmailContact = gitUser.EmailContact;
-                old.Registered = gitUser.Registered; //cuz y not?
+                //old.Registered = gitUser.Registered; //cuz y not?
                 context.SaveChanges();
             }
             else throw new NullReferenceException();

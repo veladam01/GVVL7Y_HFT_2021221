@@ -69,13 +69,13 @@ namespace GVVL7Y_HFT_2021221.Data
             //FluentAPI end
             #endregion
             #region DbSeed
-            GitUser veladam01 = new GitUser() { ID = 1, Name = "veladam01", EmailContact = "veladam01@gmail.com", Registered = Convert.ToDateTime("2021-10-04") };
-            GitUser krakenattack = new GitUser() { ID = 2, Name = "KrakenAttack",  Registered = Convert.ToDateTime("2020-01-01") };
+            GitUser veladam01 = new GitUser() { ID = 1, Name = "veladam01", EmailContact = "veladam01@gmail.com"  };
+            GitUser krakenattack = new GitUser() { ID = 2, Name = "KrakenAttack" };
             //GitUser kovi = new GitUser() { ID = 3, Name = "Kovács András", EmailContact = "kovacs.andras@nik.uni-obuda.hu", Registered = Convert.ToDateTime("2018-09-01") };
 
-            GitRepo GVVL7Y_HFT_2021221 = new GitRepo() { ID = 1, Name = "GVVL7Y_HFT_2021221", OwnerID = veladam01.ID, Created = Convert.ToDateTime("2021-10-04") };
-            GitRepo dayofdeath = new GitRepo() { ID = 3, Name = "Day Of Death Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2020-04-20") };
-            GitRepo riseofundead = new GitRepo() { ID = 2, Name = "Rise of Undead Source Code", OwnerID = krakenattack.ID, Created = Convert.ToDateTime("2019-06-09") };
+            GitRepo GVVL7Y_HFT_2021221 = new GitRepo() { ID = 1, Name = "GVVL7Y_HFT_2021221", OwnerID = veladam01.ID  };
+            GitRepo dayofdeath = new GitRepo() { ID = 3, Name = "Day Of Death Source Code", OwnerID = krakenattack.ID  };
+            GitRepo riseofundead = new GitRepo() { ID = 2, Name = "Rise of Undead Source Code", OwnerID = krakenattack.ID  };
 
             modelBuilder.Entity<GitUser>().HasData(veladam01, krakenattack);
             modelBuilder.Entity<GitRepo>().HasData(GVVL7Y_HFT_2021221, riseofundead, dayofdeath);
@@ -86,8 +86,7 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 1,
                     CommiterID = veladam01.ID,
                     CommitMessage = "Add .gitignore and .gitattributes.",
-                    TargetRepositoryID = GVVL7Y_HFT_2021221.ID,
-                    When = Convert.ToDateTime("2021. 10. 06. 22:18:24")
+                    TargetRepositoryID = GVVL7Y_HFT_2021221.ID
                 },
                 new GitCommit()
                 {
@@ -95,8 +94,7 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 2,
                     CommiterID = veladam01.ID,
                     CommitMessage = "Add project files",
-                    TargetRepositoryID = GVVL7Y_HFT_2021221.ID,
-                    When = Convert.ToDateTime("2021. 10. 06. 22:18:26")
+                    TargetRepositoryID = GVVL7Y_HFT_2021221.ID
                 },
                 new GitCommit()
                 {
@@ -104,8 +102,8 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 3,
                     CommiterID = krakenattack.ID,
                     CommitMessage = "Project startup commit",
-                    TargetRepositoryID = riseofundead.ID,
-                    When = Convert.ToDateTime("2019. 06. 09.")
+                    TargetRepositoryID = riseofundead.ID
+                    //When = Convert.ToDateTime("2019. 06. 09.")
                 },
                 new GitCommit()
                 {
@@ -113,8 +111,8 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 4,
                     CommiterID = veladam01.ID,
                     CommitMessage = "Weapon models added",
-                    TargetRepositoryID = riseofundead.ID,
-                    When = Convert.ToDateTime("2019. 06. 13.")
+                    TargetRepositoryID = riseofundead.ID
+                    //When = Convert.ToDateTime("2019. 06. 13.")
                 },
                 new GitCommit()
                 {
@@ -122,8 +120,8 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 5,
                     CommiterID = krakenattack.ID,
                     CommitMessage = "Zombie AI added",
-                    TargetRepositoryID = riseofundead.ID,
-                    When = Convert.ToDateTime("2019. 06. 15.")
+                    TargetRepositoryID = riseofundead.ID
+                    //When = Convert.ToDateTime("2019. 06. 15.")
                 },
                 new GitCommit()
                 {
@@ -131,8 +129,8 @@ namespace GVVL7Y_HFT_2021221.Data
                     ID = 6,
                     CommiterID = krakenattack.ID,
                     CommitMessage = "Initial commit",
-                    TargetRepositoryID = dayofdeath.ID,
-                    When = Convert.ToDateTime("2020. 04. 20.")
+                    TargetRepositoryID = dayofdeath.ID
+                    //When = Convert.ToDateTime("2020. 04. 20.")
                 }
                 );
             #endregion
