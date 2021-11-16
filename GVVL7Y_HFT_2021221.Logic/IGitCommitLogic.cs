@@ -14,5 +14,7 @@ namespace GVVL7Y_HFT_2021221.Logic
         int CommitCount();
 
         IEnumerable<KeyValuePair<string, int>> CommitCountByUsers();
+
+        IEnumerable<KeyValuePair<string, int>> CommitCountByRepos();
     }
 }

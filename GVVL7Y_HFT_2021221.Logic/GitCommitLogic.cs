@@ -22,6 +22,12 @@ namespace GVVL7Y_HFT_2021221.Logic
             //throw new NotImplementedException();
         }
 
+        public IEnumerable<KeyValuePair<string, int>> CommitCountByRepos()
+        {
+            return gitCommitRepository.ReadAll().GroupBy(x => x.Repo).Select(x => new KeyValuePair<string, int>(x.Key.Name, x.Count()));
+            //throw new NotImplementedException();
+        }
+
         public IEnumerable<KeyValuePair<string, int>> CommitCountByUsers()
         {
             return gitCommitRepository.ReadAll().GroupBy(x => x.User).Select(x => new KeyValuePair<string, int>(x.Key.Name, x.Count()));
