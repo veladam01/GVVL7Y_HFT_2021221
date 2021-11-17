@@ -27,14 +27,8 @@ namespace GVVL7Y_HFT_2021221.Repository
 
         public void Delete(int id)
         {
-            GitCommit gitCommit = ReadOne(id);
-            //not sure if nullcheck needed
-            if (gitCommit != null)
-            {
-                context.Commits.Remove(gitCommit);
-                context.SaveChanges();
-            }
-            else throw new NullReferenceException();
+            context.Commits.Remove(ReadOne(id));
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
 
@@ -55,22 +49,12 @@ namespace GVVL7Y_HFT_2021221.Repository
         public void Update(GitCommit gitCommit)
         {
             GitCommit old = ReadOne(gitCommit.ID);
-            if (old != null)
-            {
-                old.TargetRepositoryID = gitCommit.TargetRepositoryID;
-                old.CommiterID = gitCommit.CommiterID;
-                old.CommitMessage = gitCommit.CommitMessage;
-                //old.When = gitCommit.When;
-                context.SaveChanges();
-
-            }
-            else throw new NullReferenceException();
+            old.TargetRepositoryID = gitCommit.TargetRepositoryID;
+            old.CommiterID = gitCommit.CommiterID;
+            old.CommitMessage = gitCommit.CommitMessage;
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
-        #endregion
-
-        #region Non-CRUD
-
         #endregion
     }
 }

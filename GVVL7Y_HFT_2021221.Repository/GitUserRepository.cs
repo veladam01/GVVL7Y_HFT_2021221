@@ -27,19 +27,15 @@ namespace GVVL7Y_HFT_2021221.Repository
 
         public void Delete(int id)
         {
-            GitUser gitUser = ReadOne(id);
-            if (gitUser!=null)
-            {
-                context.Users.Remove(gitUser);
-                context.SaveChanges();
-            }
+            context.Users.Remove(ReadOne(id));
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
 
         public IQueryable<GitUser> ReadAll()
         {
             return context.Users;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public GitUser ReadOne(int id)
@@ -53,14 +49,11 @@ namespace GVVL7Y_HFT_2021221.Repository
         public void Update(GitUser gitUser)
         {
             GitUser old = ReadOne(gitUser.ID);
-            if (old != null)
-            {
-                old.Name = gitUser.Name;
-                old.EmailContact = gitUser.EmailContact;
-                //old.Registered = gitUser.Registered; //cuz y not?
-                context.SaveChanges();
-            }
-            else throw new NullReferenceException();
+
+            old.Name = gitUser.Name;
+            old.EmailContact = gitUser.EmailContact;
+            //old.Registered = gitUser.Registered; //cuz y not?
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
         #endregion

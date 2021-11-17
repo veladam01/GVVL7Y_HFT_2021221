@@ -27,14 +27,8 @@ namespace GVVL7Y_HFT_2021221.Repository
 
         public void Delete(int id)
         {
-            GitRepo gitRepo = ReadOne(id);
-            //not sure if nullcheck needed
-            if (gitRepo != null)
-            {
-                context.Repositories.Remove(gitRepo);
-                context.SaveChanges();
-            }
-            else throw new NullReferenceException();
+            context.Repositories.Remove(ReadOne(id));
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
 
@@ -55,15 +49,9 @@ namespace GVVL7Y_HFT_2021221.Repository
         public void Update(GitRepo gitRepo)
         {
             GitRepo old = ReadOne(gitRepo.ID);
-            if (old != null)
-            {
-                //old.Created = gitRepo.Created;
-                old.Name = gitRepo.Name;
-                old.OwnerID = gitRepo.OwnerID;
-                context.SaveChanges();
-                
-            }
-            else throw new NullReferenceException();
+            old.Name = gitRepo.Name;
+            old.OwnerID = gitRepo.OwnerID;
+            context.SaveChanges();
             //throw new NotImplementedException();
         }
         #endregion
