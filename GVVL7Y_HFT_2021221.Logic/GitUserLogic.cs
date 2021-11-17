@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    class GitUserLogic : IGitUserLogic
+    public class GitUserLogic : IGitUserLogic
     {
         IGitUserRepository gitUserRepository;
 

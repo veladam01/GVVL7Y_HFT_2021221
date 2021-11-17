@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    interface IGitUserLogic
+    public interface IGitUserLogic
     {
-        int UserCount();
+        public int UserCount();
 
         //no idea for other methods
     }

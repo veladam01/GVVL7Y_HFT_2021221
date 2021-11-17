@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    interface IGitCommitLogic
+    public interface IGitCommitLogic
     {
         
 
-        int CommitCount();
+        public int CommitCount();
 
-        IEnumerable<KeyValuePair<string, int>> CommitCountByUsers();
+        public IEnumerable<KeyValuePair<string, int>> CommitCountByUsers();
 
-        IEnumerable<KeyValuePair<string, int>> CommitCountByRepos();
+        public IEnumerable<KeyValuePair<string, int>> CommitCountByRepos();
     }
 }

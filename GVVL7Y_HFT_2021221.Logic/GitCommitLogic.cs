@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    class GitCommitLogic : IGitCommitLogic
+    public class GitCommitLogic : IGitCommitLogic
     {
         IGitCommitRepository gitCommitRepository;
 

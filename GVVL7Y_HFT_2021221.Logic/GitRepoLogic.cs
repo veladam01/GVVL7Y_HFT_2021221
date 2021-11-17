@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    class GitRepoLogic : IGitRepoLogic
+    public class GitRepoLogic : IGitRepoLogic
     {
         IGitRepoRepository gitRepoRepository;
 

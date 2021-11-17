@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
-    interface IGitRepoLogic
+    public interface IGitRepoLogic
     {
-        int RepoCount();
+        public int RepoCount();
 
-        IEnumerable<KeyValuePair<string, int>> RepoCountByOwners();
+        public IEnumerable<KeyValuePair<string, int>> RepoCountByOwners();
     }
 }
