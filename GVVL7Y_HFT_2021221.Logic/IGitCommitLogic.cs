@@ -1,20 +1,19 @@
-﻿using GVVL7Y_HFT_2021221.Repository;
-using System;
+﻿using GVVL7Y_HFT_2021221.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
     public interface IGitCommitLogic
     {
-        
-
-        public int CommitCount();
-
-        public IEnumerable<KeyValuePair<string, int>> CommitCountByUsers();
-
-        public IEnumerable<KeyValuePair<string, int>> CommitCountByRepos();
+        double AvgCommitByRepos();
+        double AvgCommitByUsers();
+        int CommitCount();
+        IEnumerable<KeyValuePair<string, int>> CommitCountByRepos();
+        IEnumerable<KeyValuePair<string, int>> CommitCountByUsers();
+        void Create(GitCommit gitCommit);
+        void Delete(int id);
+        IEnumerable<GitCommit> ReadAll();
+        GitCommit ReadOne(int id);
+        void Update(GitCommit gitCommit);
     }
 }

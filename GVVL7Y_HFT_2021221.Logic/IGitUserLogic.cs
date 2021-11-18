@@ -1,15 +1,15 @@
-﻿using System;
+﻿using GVVL7Y_HFT_2021221.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GVVL7Y_HFT_2021221.Logic
 {
     public interface IGitUserLogic
     {
-        public int UserCount();
-
-        //no idea for other methods
+        void Create(GitUser gitUser);
+        void Delete(int id);
+        IEnumerable<GitUser> ReadAll();
+        GitUser ReadOne(int id);
+        void Update(GitUser gitUser);
+        int UserCount();
     }
 }
