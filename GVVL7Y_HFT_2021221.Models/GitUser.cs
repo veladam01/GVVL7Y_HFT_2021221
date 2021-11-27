@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Text.Json.Serialization;
 
 namespace GVVL7Y_HFT_2021221.Models
 {
@@ -22,9 +22,9 @@ namespace GVVL7Y_HFT_2021221.Models
         //[Required]
         //public DateTime Registered { get; set; }
 
-        [NotMapped]
+        [NotMapped][JsonIgnore]
         public virtual ICollection<GitCommit> Commits { get; set; }
-        [NotMapped]
+        [NotMapped][JsonIgnore]
         public virtual ICollection<GitRepo> Repos{ get; set; }
 
         public GitUser()

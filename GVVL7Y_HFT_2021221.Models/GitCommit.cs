@@ -24,7 +24,7 @@ namespace GVVL7Y_HFT_2021221.Models
         public virtual GitRepo Repo { get; set; }
         [ForeignKey(nameof(Repo))]
         public int TargetRepositoryID { get;  set; }
-        
+        [Required]
         public string CommitMessage { get;  set; }
         //[Required]
         //public DateTime When { get; set; }
