@@ -43,5 +43,33 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         {
             logic.Update(commit);
         }
+
+        [HttpGet("commitcount")]
+        public int GetCommitCount()
+        {
+            return logic.CommitCount();
+        }
+        [HttpGet("avgcommitbyrepos")]
+        public double GetAvgCommitByRepos()
+        {
+            return logic.AvgCommitByRepos();
+        }
+        [HttpGet("avgcommitbyusers")]
+        public double GetAvgCommitByUsers()
+        {
+            return logic.AvgCommitByUsers();
+        }
+
+
+        //[HttpGet("commitcountbyusers")]
+        //public IEnumerable<KeyValuePair<string, int>> GetCommitCountByUsers()
+        //{
+        //    return logic.CommitCountByUsers();
+        //}
+        //[HttpGet("commitcountbyrepos")]
+        //public IEnumerable<KeyValuePair<string, int>> GetCommitCountByRepos()
+        //{
+        //    return logic.CommitCountByRepos();
+        //}
     }
 }

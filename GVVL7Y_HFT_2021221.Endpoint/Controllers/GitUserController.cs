@@ -43,5 +43,8 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         {
             logic.Update(user);
         }
+        [HttpGet("usercount")]
+        public int GetUserCount()
+        { return logic.UserCount(); }
     }
 }

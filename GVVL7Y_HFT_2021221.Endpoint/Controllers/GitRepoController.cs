@@ -43,5 +43,22 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         {
             logic.Update(repo);
         }
+        [HttpGet("repocount")]
+        public int GetRepoCount()
+        {
+            return logic.RepoCount();
+        }
+        [HttpGet("avgrepobyusers")]
+        public double GetAvgRepoByUsers()
+        {
+            return logic.AvgRepoByUsers();
+        }
+
+        //[HttpGet("repocountbyowners")]
+        //public IEnumerable< KeyValuePair<string, int>> GetRepoCountByOwners()
+        //{
+        //    return logic.RepoCountByOwners();
+        //}
+            
     }
 }
