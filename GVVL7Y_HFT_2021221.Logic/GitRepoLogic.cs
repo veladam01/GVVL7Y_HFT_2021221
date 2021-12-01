@@ -74,7 +74,7 @@ namespace GVVL7Y_HFT_2021221.Logic
         public IEnumerable<KeyValuePair<string, int>> RepoCountByOwners()
         {
             return gitRepoRepository.ReadAll().GroupBy(x => x.Owner).Select(x => new KeyValuePair<string, int>(x.Key.Name, x.Count()));
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public double AvgRepoByUsers()

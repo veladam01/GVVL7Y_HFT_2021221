@@ -11,9 +11,9 @@ namespace GVVL7Y_HFT_2021221.Logic
     public class GitUserLogic : IGitUserLogic
     //: IGitUserLogic
     {
-        IGitRepoRepository gitRepoRepository;
+        //IGitRepoRepository gitRepoRepository;
 
-        IGitCommitRepository gitCommitRepository;
+        //IGitCommitRepository gitCommitRepository;
 
         IGitUserRepository gitUserRepository;
 

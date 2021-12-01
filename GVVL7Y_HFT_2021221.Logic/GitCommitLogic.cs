@@ -88,7 +88,7 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public double AvgCommitByRepos()
         {
-            return (gitCommitRepository.ReadAll().Count() / gitUserRepository.ReadAll().Count());
+            return (gitCommitRepository.ReadAll().Count() / gitRepoRepository.ReadAll().Count());
         }
         #endregion
     }
