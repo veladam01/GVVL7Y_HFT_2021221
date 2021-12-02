@@ -26,6 +26,12 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
             return logic.ReadAll();
         }
 
+        [HttpGet("{ID}")]
+        public GitRepo GetOne([FromRoute]int id)
+        {
+            return logic.ReadOne(id);
+        }
+
         [HttpPost]
         public void AddOne([FromBody] GitRepo repo)
         {
@@ -33,9 +39,9 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpDelete("{ID}")]
-        public void DeleteOne([FromRoute] int repoid)
+        public void DeleteOne([FromRoute] int id)
         {
-            logic.Delete(repoid);
+            logic.Delete(id);
         }
 
         [HttpPut]

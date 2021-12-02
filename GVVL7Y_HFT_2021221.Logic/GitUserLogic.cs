@@ -22,7 +22,11 @@ namespace GVVL7Y_HFT_2021221.Logic
         {
             if (gitUser.Name == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Hello! Username required! Try this thing again!");
+            }
+            else if (gitUser.ID!=0)
+            {
+                throw new InvalidOperationException("Hello! Do not give me ID! The database will do this for me!");
             }
             else gitUserRepository.Create(gitUser);
             //throw new NotImplementedException();
@@ -30,6 +34,19 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Delete(int id)
         {
+            if (gitUserRepository.ReadOne(id)==null) 
+            {
+                
+            }
+            else if (gitUserRepository.ReadOne(id).Repos != null)
+            {
+
+            }
+            else if ( gitUserRepository.ReadOne(id).Commits != null)
+            {
+
+            }
+            else
             gitUserRepository.Delete(id);
             //throw new NotImplementedException();
         }
@@ -48,7 +65,11 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Update(GitUser gitUser)
         {
-            gitUserRepository.Update(gitUser);
+            if (gitUserRepository.ReadOne(gitUser.ID)!=null)
+            {
+                gitUserRepository.Update(gitUser);
+            }
+            
             //throw new NotImplementedException();
         }
         #endregion

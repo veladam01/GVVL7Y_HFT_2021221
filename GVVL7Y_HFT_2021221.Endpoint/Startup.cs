@@ -4,6 +4,7 @@ using GVVL7Y_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,13 +31,14 @@ namespace GVVL7Y_HFT_2021221.Endpoint
         {
             services.AddControllers();
 
-            services.AddTransient<IGitCommitLogic, GitCommitLogic>();
-            services.AddTransient<IGitCommitRepository, GitCommitRepository>();
-            services.AddTransient<IGitRepoLogic, GitRepoLogic>();
-            services.AddTransient<IGitRepoRepository, GitRepoRepository>();
             services.AddTransient<IGitUserLogic, GitUserLogic>();
+            services.AddTransient<IGitRepoLogic, GitRepoLogic>();
+            services.AddTransient<IGitCommitLogic, GitCommitLogic>();
             services.AddTransient<IGitUserRepository, GitUserRepository>();
-            services.AddTransient<GitDatabaseContext, GitDatabaseContext>();
+            services.AddTransient<IGitRepoRepository, GitRepoRepository>();
+            services.AddTransient<IGitCommitRepository, GitCommitRepository>();
+            services.AddSingleton<GitDatabaseContext, GitDatabaseContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

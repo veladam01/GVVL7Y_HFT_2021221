@@ -31,16 +31,34 @@ namespace GVVL7Y_HFT_2021221.Logic
         #region CRUD
         public void Create(GitRepo gitRepo)
         {
-            if (gitRepo.Name == null || gitRepo.Owner == null)
+            if (gitRepo.Name == null)
             {
-                throw new ArgumentException("Hello! All of the following fields are required:\n(1) Name\n(2) Owner\nTry this thing again!");
+                throw new ArgumentException("Hello! Repo name required! Try this thing again!");
             }
-            gitRepoRepository.Create(gitRepo);
+            else if (gitRepo.ID!=0)
+            {
+                throw new InvalidOperationException("Hello! Do not give me ID! The database will do this for me!");
+            }
+            else if (gitRepo.OwnerID==0||gitUserRepository.ReadOne(gitRepo.OwnerID)==null)
+            {
+                throw new ArgumentException("Hello! Repo must have a foreign key to its owner");
+            }
+            else gitRepoRepository.Create(gitRepo);
             //throw new NotImplementedException();
         }
 
         public void Delete(int id)
         {
+            if (gitRepoRepository.ReadOne(id) == null)
+            {
+
+            }
+            else if (gitRepoRepository.ReadOne(id).Commits!=null)
+            {
+                //throw new Exception("This item cannot be deleted as others reference to it!");
+            }
+            
+            else
             gitRepoRepository.Delete(id);
             //throw new NotImplementedException();
         }
@@ -59,7 +77,11 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Update(GitRepo gitRepo)
         {
-            gitRepoRepository.Update(gitRepo);
+            if (gitRepoRepository.ReadOne(gitRepo.ID)!=null)
+            {
+                gitRepoRepository.Update(gitRepo);
+            }
+            
             //throw new NotImplementedException();
         }
         #endregion

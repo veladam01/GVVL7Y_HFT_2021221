@@ -19,16 +19,41 @@ namespace GVVL7Y_HFT_2021221.Logic
         #region CRUD
         public void Create(GitCommit gitCommit)
         {
-            if ( gitCommit.Repo == null || gitCommit.User == null || gitCommit.CommitMessage == null)
+            if (gitCommit.CommitMessage == null || gitCommit.CommitMessage == "")
             {
-                throw new ArgumentException("Hello! All of the following fields are required:\n(1) Commit message\n(2) Commiter\n(3) Targeted Repository\nTry this thing again");
+                throw new ArgumentException("Hello! Commit message required! Try this thing again");
             }
+            else if (gitCommit.ID != 0)
+            {
+                throw new InvalidOperationException("Hello! Do not give me ID! The database will do this for me!");
+            }
+            else if (gitCommit.CommiterID==0)
+            {
+                //throw new ArgumentException("Hello! Commit must have a foreign key to its commiter!");
+            }
+            else if (gitUserRepository.ReadOne(gitCommit.CommiterID)==null)
+            {
+                //throw new ArgumentException("Hello! Commiter must be a valid (already existing) user!");
+            }
+            else if (gitCommit.TargetRepositoryID == 0)
+            {
+                //throw new ArgumentException("Hello! Commit must have a foreign key to its targeted repo!");
+            }
+            else if (gitRepoRepository.ReadOne(gitCommit.TargetRepositoryID) == null)
+            {
+                //throw new ArgumentException("Hello! Targeted repository must be a valid (already existing) repo!");
+            }
+            
             else gitCommitRepository.Create(gitCommit);
         }
 
         public void Delete(int id)
         {
-            gitCommitRepository.Delete(id);
+            if (gitCommitRepository.ReadOne(id)!=null)
+            {
+                gitCommitRepository.Delete(id);
+            }
+            
         }
 
         public IEnumerable<GitCommit> ReadAll()
@@ -45,7 +70,11 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Update(GitCommit gitCommit)
         {
-            gitCommitRepository.Update(gitCommit);
+            if (gitCommitRepository.ReadOne(gitCommit.ID)!=null)
+            {
+                gitCommitRepository.Update(gitCommit);
+            }
+            
             //throw new NotImplementedException();
         }
 

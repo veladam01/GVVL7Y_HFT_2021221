@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 
 namespace GVVL7Y_HFT_2021221.Test
 {
@@ -158,81 +158,46 @@ namespace GVVL7Y_HFT_2021221.Test
 
         }
 
-
-        [TestCase("veladam01", null, true)]
-        [TestCase("John Doe", "john@doe.com", true)]
-        [TestCase(null, "unknown@unknown.com", false)]
-        public void CreateUserTest(string name, string email, bool result)
+        [Test]
+        public void TestUsernameNull()
         {
-            if (result)
-            {
-                Assert.That(() => gitUserLogic.Create(new GitUser()
-                {
-                    Name = name,
-                    EmailContact = email
-                }), Throws.Nothing);
-
-            }
-            else
-            {
-                Assert.That(() => gitUserLogic.Create(new GitUser()
-                {
-                    Name = name,
-                    EmailContact = email
-                }), Throws.Exception);
-            }
+            var user = new GitUser();
+            Assert.Throws<ArgumentException>(()=>gitUserLogic.Create(user));
         }
 
-        static object[] RepoCreateCases =
-            {
-            new object[] { "semester homework", new GitUser() { Name = "veladam01", EmailContact = null, ID = 1}, true },
-            new object[] { "asd", null, false },
-            new object[] { null, new GitUser() { Name = "oenikprog", }, false }
-            }
-        ;
-        [TestCaseSource(nameof(RepoCreateCases))]
-        public void CreateRepoTest(string name, GitUser owner, bool result)
+        [Test]
+        public void TestUserIDNot0()
         {
-            if (result)
-                Assert.That(() => gitRepoLogic.Create(new GitRepo() { Name = name, Owner = owner, }), Throws.Nothing);
-            else
-                Assert.That(() => gitRepoLogic.Create(new GitRepo() { Name = name, Owner = owner, }), Throws.Exception);
+            var user = new GitUser {Name="Satan himself", ID = 666 };
+            Assert.Throws<InvalidOperationException>(() => gitUserLogic.Create(user));
         }
-        static object[] CommitCreateCases =
+        [Test]
+        public void TestRepoNamenull()
         {
-            new object[]
-            { 
-                new GitRepo() { Owner= new GitUser() { Name = "veladam01"}, Name = "semester homework",},
-                "Hello there",
-                true},
-            new object[]
-            {
-                null,
-                "Hello there",
-                false},
-            new object[]
-            {
-                new GitRepo() {Name = "projectwork", Owner= null, },
-                "Hello there",
-                false},
-            new object[]
-            {
-                new GitRepo() {Name = "Moc King", Owner= new GitUser() { Name = "Johnny Test", EmailContact = null,}, },
-                null,
-                false},
-        };
-        [TestCaseSource(nameof(CommitCreateCases))]
-        public void CreateCommitTest(GitRepo repo, string commitmsg, bool result)
-        {
-            if (result)
-            {
-                Assert.That(() => gitCommitLogic.Create(new GitCommit() { Repo = repo, User = repo.Owner, CommitMessage = commitmsg }), Throws.Nothing);
-            }
-            else
-            {
-                Assert.That(() => gitCommitLogic.Create(new GitCommit() { Repo = repo, User = repo.Owner, CommitMessage = commitmsg }), Throws.Exception);
-            }
+            var repo = new GitRepo () ;
+            Assert.Throws<ArgumentException>(() => gitRepoLogic.Create(repo));
         }
+
+        [Test]
+        public void TestRepoIDNot0()
+        {
+            var repo = new GitRepo { Name="something", ID = 420};
+            Assert.Throws<InvalidOperationException>(() => gitRepoLogic.Create(repo));
+        }
+
+        [Test]
+        public void TestCommitMessageNull()
+        {
+            var commit = new GitCommit();
+            Assert.Throws<ArgumentException>(() => gitCommitLogic.Create(commit));
+        }
+        [Test]
+        public void TestCommitIDNot0()
+        {
+            var commit = new GitCommit { CommitMessage="asd", ID = 69 };
+            Assert.Throws<InvalidOperationException>(() => gitCommitLogic.Create(commit));
+        }
+
         [Test]
         public void RepoCountTest()
         {
