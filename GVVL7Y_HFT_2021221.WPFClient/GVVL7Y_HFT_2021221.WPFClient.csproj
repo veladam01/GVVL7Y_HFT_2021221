@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GVVL7Y_HFT_2021221.Models\GVVL7Y_HFT_2021221.Models.csproj" />
+  </ItemGroup>
+
 </Project>
