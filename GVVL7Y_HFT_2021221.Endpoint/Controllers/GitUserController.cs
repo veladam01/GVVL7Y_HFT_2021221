@@ -39,7 +39,17 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         [HttpDelete("{ID}")]
         public void DeleteOne([FromRoute] int id)
         {
-            logic.Delete(id);
+            //HttpResponseException
+            try
+            {
+                logic.Delete(id);
+            }
+            catch (Exception)
+            {
+
+                //throw new Exception(e.Message);
+            }
+            
         }
 
         [HttpPut]

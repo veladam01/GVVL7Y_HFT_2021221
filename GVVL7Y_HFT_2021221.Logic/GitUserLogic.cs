@@ -34,19 +34,17 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Delete(int id)
         {
-            if (gitUserRepository.ReadOne(id)==null) 
+            if (gitUserRepository.ReadOne(id)!=null) 
             {
-                
+                if (gitUserRepository.ReadOne(id).Repos.Count != 0)
+                {
+                    throw new InvalidOperationException("Cannot delete -> user has existing repositories");
+                }
+                else if (gitUserRepository.ReadOne(id).Commits.Count != 0)
+                {
+                    throw new InvalidOperationException("Cannot delete -> user has existing commits");
+                }
             }
-            else if (gitUserRepository.ReadOne(id).Repos != null)
-            {
-
-            }
-            else if ( gitUserRepository.ReadOne(id).Commits != null)
-            {
-
-            }
-            else
             gitUserRepository.Delete(id);
             //throw new NotImplementedException();
         }

@@ -49,16 +49,19 @@ namespace GVVL7Y_HFT_2021221.Logic
 
         public void Delete(int id)
         {
-            if (gitRepoRepository.ReadOne(id) == null)
+            if (gitRepoRepository.ReadOne(id) != null)
             {
-
+                if (gitRepoRepository.ReadOne(id).Commits.Count!=0)
+                {
+                    throw new InvalidOperationException("Cannot delete -> repo has existing commits");
+                }
             }
-            else if (gitRepoRepository.ReadOne(id).Commits!=null)
-            {
+            //else if (gitRepoRepository.ReadOne(id).Commits!=null)
+            //{
                 //throw new Exception("This item cannot be deleted as others reference to it!");
-            }
+            //}
             
-            else
+            //else
             gitRepoRepository.Delete(id);
             //throw new NotImplementedException();
         }
