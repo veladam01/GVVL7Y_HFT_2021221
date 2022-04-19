@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GVVL7Y_HFT_2021221.Logic;
 using GVVL7Y_HFT_2021221.Models;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
 {
@@ -14,10 +15,11 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
     public class GitCommitController : ControllerBase
     {
         private IGitCommitLogic logic;
-
-        public GitCommitController(IGitCommitLogic logic)
+        private readonly IHubContext<SignalRHub> hub;
+        public GitCommitController(IGitCommitLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -35,18 +37,22 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void AddOne([FromBody] GitCommit commit)
         {
             logic.Create(commit);
+            hub.Clients.All.SendAsync("CommitCreated", commit);
         }
 
         [HttpDelete("{ID}")]
         public void DeleteOne([FromRoute] int id)
         {
+            var toDel = logic.ReadOne(id);
             logic.Delete(id);
+            hub.Clients.All.SendAsync("CommitDeleted", toDel);
         }
 
         [HttpPut]
         public void EditOne([FromBody] GitCommit commit)
         {
             logic.Update(commit);
+            hub.Clients.All.SendAsync("CommitUpdated", commit);
         }
 
         [HttpGet("commitcount")]

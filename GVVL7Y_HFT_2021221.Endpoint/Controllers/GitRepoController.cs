@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GVVL7Y_HFT_2021221.Logic;
 using GVVL7Y_HFT_2021221.Models;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
 {
@@ -14,10 +15,12 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
     public class GitRepoController : ControllerBase
     {
         private IGitRepoLogic logic;
+        private readonly IHubContext<SignalRHub> hub;
 
-        public GitRepoController(IGitRepoLogic logic)
+        public GitRepoController(IGitRepoLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -36,27 +39,23 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void AddOne([FromBody] GitRepo repo)
         {
             logic.Create(repo);
+            hub.Clients.All.SendAsync("RepoCreated", repo);
         }
 
         [HttpDelete("{ID}")]
         public void DeleteOne([FromRoute] int id)
         {
-            try
-            {
-                logic.Delete(id);
-            }
-            catch (Exception)
-            {
+            var toDel = logic.ReadOne(id);
+            logic.Delete(id);
+            hub.Clients.All.SendAsync("RepoDeleted", toDel);
 
-                //throw;
-            }
-            
         }
 
         [HttpPut]
         public void EditOne([FromBody] GitRepo repo)
         {
             logic.Update(repo);
+            hub.Clients.All.SendAsync("RepoUpdated", repo);
         }
         [HttpGet("repocount")]
         public int GetRepoCount()

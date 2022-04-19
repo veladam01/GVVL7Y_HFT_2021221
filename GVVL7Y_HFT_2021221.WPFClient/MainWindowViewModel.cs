@@ -3,6 +3,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,14 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                 } }
         }
 
+        public static bool IsInDesignMode
+        {
+            get
+            {
+                var prop = DesignerProperties.IsInDesignModeProperty;
+                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
+            }
+        }
 
         public ICommand AddGitUser { get; set; }
         public ICommand EditGitUser { get; set; }
@@ -100,66 +109,69 @@ namespace GVVL7Y_HFT_2021221.WPFClient
 
         public MainWindowViewModel()
         {
-
-            gitUsers = new RestCollection<GitUser>("http://localhost:39621/", "gituser");
-            gitRepos = new RestCollection<GitRepo>("http://localhost:39621/", "gitrepo");
-            gitCommits = new RestCollection<GitCommit>("http://localhost:39621/", "gitcommit");
-
-            AddGitUser = new RelayCommand(() =>
+            if (!IsInDesignMode)
             {
-                gitUsers.Add(new GitUser()
+                gitUsers = new RestCollection<GitUser>("http://localhost:39621/", "gituser", "hub");
+                gitRepos = new RestCollection<GitRepo>("http://localhost:39621/", "gitrepo", "hub");
+                gitCommits = new RestCollection<GitCommit>("http://localhost:39621/", "gitcommit", "hub");
+
+                AddGitUser = new RelayCommand(() =>
                 {
-                    Name = SelectedUser.Name,
-                    EmailContact = SelectedUser.EmailContact
-                } );
-            });
-            EditGitUser = new RelayCommand(() => gitUsers.Update(selectedUser));
-
-            DeleteGitUser = new RelayCommand(() =>
-            {
-                gitUsers.Delete(SelectedUser.ID);
-                //DeleteUser(SelectedUser);
-            },
-            () => { return SelectedUser != null; }
-            );
-            selectedUser = new();
-
-            AddGitRepo = new RelayCommand(() =>
-              {
-                  gitRepos.Add(new GitRepo()
-                  {
-                      Name=SelectedRepo.Name,
-                      OwnerID=SelectedRepo.OwnerID,
-                      
-                  });
-              }
-            );
-            EditGitRepo = new RelayCommand(() => gitRepos.Update(selectedRepo));
-            DeleteGitRepo = new RelayCommand(() =>
-            {
-                gitRepos.Delete(SelectedRepo.ID);
-                //DeleteRepo(SelectedRepo);
-            },
-            ()=> { return SelectedRepo != null; });
-            selectedRepo=new();
-
-            AddGitCommit = new RelayCommand(() =>
-            {
-                gitCommits.Add(new GitCommit()
-                {
-                    CommitMessage = SelectedCommit.CommitMessage,
-                    TargetRepositoryID = SelectedCommit.TargetRepositoryID,
-                    CommiterID = SelectedCommit.CommiterID
+                    gitUsers.Add(new GitUser()
+                    {
+                        Name = SelectedUser.Name,
+                        EmailContact = SelectedUser.EmailContact
+                    });
                 });
-            });
-            EditGitCommit = new RelayCommand(() => gitCommits.Update(selectedCommit));
-            DeleteGitCommit = new RelayCommand(() =>
-            {
-                gitCommits.Delete(SelectedCommit.ID);
-            },
-            ()=> { return SelectedCommit != null; });
-            selectedCommit = new();
+                EditGitUser = new RelayCommand(() => gitUsers.Update(selectedUser));
+
+                DeleteGitUser = new RelayCommand(() =>
+                {
+                    gitUsers.Delete(SelectedUser.ID);
+                    //DeleteUser(SelectedUser);
+                },
+                () => { return SelectedUser != null; }
+                );
+                selectedUser = new();
+
+                AddGitRepo = new RelayCommand(() =>
+                {
+                    gitRepos.Add(new GitRepo()
+                    {
+                        Name = SelectedRepo.Name,
+                        OwnerID = SelectedRepo.OwnerID,
+
+                    });
+                }
+                );
+                EditGitRepo = new RelayCommand(() => gitRepos.Update(selectedRepo));
+                DeleteGitRepo = new RelayCommand(() =>
+                {
+                    gitRepos.Delete(SelectedRepo.ID);
+                    //DeleteRepo(SelectedRepo);
+                },
+                () => { return SelectedRepo != null; });
+                selectedRepo = new();
+
+                AddGitCommit = new RelayCommand(() =>
+                {
+                    gitCommits.Add(new GitCommit()
+                    {
+                        CommitMessage = SelectedCommit.CommitMessage,
+                        TargetRepositoryID = SelectedCommit.TargetRepositoryID,
+                        CommiterID = SelectedCommit.CommiterID
+                    });
+                });
+                EditGitCommit = new RelayCommand(() => gitCommits.Update(selectedCommit));
+                DeleteGitCommit = new RelayCommand(() =>
+                {
+                    gitCommits.Delete(SelectedCommit.ID);
+                },
+                () => { return SelectedCommit != null; });
+                selectedCommit = new();
+            }
         }
+
 
         void DeleteRepo(GitRepo repo)
         {

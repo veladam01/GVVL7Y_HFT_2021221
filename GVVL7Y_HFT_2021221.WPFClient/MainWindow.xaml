@@ -46,8 +46,6 @@
                         <Label Content="{Binding Name}"/>
                         <Label Content="{Binding Owner.Name}"/>
                     </StackPanel>
-
-
                 </DataTemplate>
 
             </ListBox.ItemTemplate>
@@ -76,7 +74,7 @@
         <StackPanel Grid.Column="0" Grid.Row="5" DataContext="{Binding SelectedUser}">
             <Label Content="ID:"/>
             <TextBox Text="{Binding ID}"/>
-            <Label Content="Username:"/>
+            <Label Content="Username: (Required)"/>
             <TextBox Text="{Binding Name}"/>
             <Label Content="Email Contact:"/>
             <TextBox Text="{Binding EmailContact}"/>
@@ -84,9 +82,9 @@
         <StackPanel Grid.Column="1" Grid.Row="5" DataContext="{Binding SelectedRepo}">
             <Label Content="ID:"/>
             <TextBox Text="{Binding ID}"/>
-            <Label Content="Repo name"/>
+            <Label Content="Repo Name:"/>
             <TextBox Text="{Binding Name}"/>
-            <Label Content="Owner ID"/>
+            <Label Content="Owner ID: (Required)"/>
             <TextBox Text="{Binding OwnerID}"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="5" DataContext="{Binding SelectedCommit}">
@@ -94,9 +92,9 @@
             <TextBox Text="{Binding ID}"/>
             <Label Content="Commit Message:"/>
             <TextBox Text="{Binding CommitMessage}"/>
-            <Label Content="Target Repository ID"/>
+            <Label Content="Target Repository ID: (Required)"/>
             <TextBox Text="{Binding TargetRepositoryID}"/>
-            <Label Content="Commiter ID:"/>
+            <Label Content="Commiter ID: (Required)"/>
             <TextBox Text="{Binding CommiterID}"/>
         </StackPanel>
     </Grid>
