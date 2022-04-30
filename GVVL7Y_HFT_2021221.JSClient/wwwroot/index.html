@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GitUser Manager</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <h1>GitUser Manager</h1>
+
+    <div id="formdiv">
+        <label>Name</label>
+        <input type="text" id="name_input" />
+        <label>EmailContact</label>
+        <input type="text" id="emailContact_input" />
+        <button type="button" class="add" onclick="create()">Add User</button>
+    </div>
+
+    <div id="editformdiv">
+        <label>Name</label>
+        <input type="text" id="name_edit" />
+        <label>EmailContact</label>
+        <input type="text" id="emailContact_edit" />
+        <button type="button" onclick="edit()">Edit User</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>EmailContact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+            <tr>
+                <td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

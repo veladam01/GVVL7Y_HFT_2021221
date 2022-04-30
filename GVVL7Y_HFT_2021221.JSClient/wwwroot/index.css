@@ -1,0 +1,52 @@
+﻿table{
+    width:75%;
+}
+table,th,td{
+    border: 1px solid dimgray;
+}
+
+table{
+    border-collapse: collapse;
+}
+th, td{
+    padding: 5px;
+}
+
+* {
+    background-color: #161614;
+    
+    font-family: Arial;
+    color:lightgray;
+}
+
+editformdiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#editformdiv label, button, input {
+    margin: 10px;
+    padding: 10px;
+}
+
+#editformdiv button {
+    background-color: blue;
+}
+#formdiv{
+    display:flex;
+    flex-direction: row;
+}
+
+#formdiv label, button, input{
+    margin:10px;
+    padding:10px;
+    border-color:lightgray;
+}
+#formdiv button{
+    background-color:green;
+}
+table button.edit{
+    background-color:blue;
+}table button.delete{
+    background-color:red;
+}

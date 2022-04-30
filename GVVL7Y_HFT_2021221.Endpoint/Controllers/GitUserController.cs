@@ -36,8 +36,8 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void AddOne([FromBody] GitUser user)
         {
-            logic.Create(user);
-            hub.Clients.All.SendAsync("UserCreated", user);
+            this.logic.Create(user);
+            this.hub.Clients.All.SendAsync("UserCreated", user);
         }
 
         [HttpDelete("{ID}")]
@@ -46,8 +46,8 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
 
             //HttpResponseException
             var toDel = logic.ReadOne(id);
-            logic.Delete(id);
-            hub.Clients.All.SendAsync("UserDeleted", toDel);
+            this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("UserDeleted", toDel);
             //try
             //{
 
