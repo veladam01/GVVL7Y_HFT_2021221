@@ -24,5 +24,6 @@ namespace GVVL7Y_HFT_2021221.WPFClient
         {
             InitializeComponent();
         }
+
     }
 }

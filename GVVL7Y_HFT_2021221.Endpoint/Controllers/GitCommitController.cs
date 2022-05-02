@@ -15,7 +15,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
     public class GitCommitController : ControllerBase
     {
         private IGitCommitLogic logic;
-        private readonly IHubContext<SignalRHub> hub;
+        private IHubContext<SignalRHub> hub;
         public GitCommitController(IGitCommitLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
@@ -37,7 +37,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void AddOne([FromBody] GitCommit commit)
         {
             logic.Create(commit);
-            hub.Clients.All.SendAsync("CommitCreated", commit);
+            hub.Clients.All.SendAsync("GitCommitCreated", commit);
         }
 
         [HttpDelete("{ID}")]
@@ -45,14 +45,14 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         {
             var toDel = logic.ReadOne(id);
             logic.Delete(id);
-            hub.Clients.All.SendAsync("CommitDeleted", toDel);
+            hub.Clients.All.SendAsync("GitCommitDeleted", toDel);
         }
 
         [HttpPut]
         public void EditOne([FromBody] GitCommit commit)
         {
             logic.Update(commit);
-            hub.Clients.All.SendAsync("CommitUpdated", commit);
+            hub.Clients.All.SendAsync("GitCommitUpdated", commit);
         }
 
         [HttpGet("commitcount")]

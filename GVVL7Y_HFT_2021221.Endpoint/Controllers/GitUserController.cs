@@ -15,7 +15,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
     public class GitUserController : ControllerBase
     {
         private IGitUserLogic logic;
-        private readonly IHubContext<SignalRHub> hub;
+        private IHubContext<SignalRHub> hub;
 
         public GitUserController(IGitUserLogic logic, IHubContext<SignalRHub> hub)
         {
@@ -37,7 +37,8 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void AddOne([FromBody] GitUser user)
         {
             this.logic.Create(user);
-            this.hub.Clients.All.SendAsync("UserCreated", user);
+            this.hub.Clients.All.SendAsync("GitUserCreated", user);
+
         }
 
         [HttpDelete("{ID}")]
@@ -47,7 +48,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
             //HttpResponseException
             var toDel = logic.ReadOne(id);
             this.logic.Delete(id);
-            this.hub.Clients.All.SendAsync("UserDeleted", toDel);
+            this.hub.Clients.All.SendAsync("GitUserDeleted", toDel);
             //try
             //{
 
@@ -64,7 +65,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void EditOne([FromBody] GitUser user)
         {
             logic.Update(user);
-            hub.Clients.All.SendAsync("UserUpdated", user);
+            hub.Clients.All.SendAsync("GitUserUpdated", user);
         }
         [HttpGet("usercount")]
         public int GetUserCount()

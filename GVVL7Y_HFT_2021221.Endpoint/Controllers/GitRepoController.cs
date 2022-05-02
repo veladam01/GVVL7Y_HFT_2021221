@@ -15,7 +15,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
     public class GitRepoController : ControllerBase
     {
         private IGitRepoLogic logic;
-        private readonly IHubContext<SignalRHub> hub;
+        private IHubContext<SignalRHub> hub;
 
         public GitRepoController(IGitRepoLogic logic, IHubContext<SignalRHub> hub)
         {
@@ -39,7 +39,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void AddOne([FromBody] GitRepo repo)
         {
             logic.Create(repo);
-            hub.Clients.All.SendAsync("RepoCreated", repo);
+            hub.Clients.All.SendAsync("GitRepoCreated", repo);
         }
 
         [HttpDelete("{ID}")]
@@ -47,7 +47,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         {
             var toDel = logic.ReadOne(id);
             logic.Delete(id);
-            hub.Clients.All.SendAsync("RepoDeleted", toDel);
+            hub.Clients.All.SendAsync("GitRepoDeleted", toDel);
 
         }
 
@@ -55,7 +55,7 @@ namespace GVVL7Y_HFT_2021221.Endpoint.Controllers
         public void EditOne([FromBody] GitRepo repo)
         {
             logic.Update(repo);
-            hub.Clients.All.SendAsync("RepoUpdated", repo);
+            hub.Clients.All.SendAsync("GitRepoUpdated", repo);
         }
         [HttpGet("repocount")]
         public int GetRepoCount()

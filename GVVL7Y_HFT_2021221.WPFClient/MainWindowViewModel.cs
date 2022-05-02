@@ -12,11 +12,21 @@ using System.Windows.Input;
 
 namespace GVVL7Y_HFT_2021221.WPFClient
 {
-    public class MainWindowViewModel:ObservableRecipient
+    public class MainWindowViewModel : ObservableRecipient
     {
         public RestCollection<GitUser> gitUsers { get; set; }
         public RestCollection<GitRepo> gitRepos { get; set; }
         public RestCollection<GitCommit> gitCommits { get; set; }
+
+        public ICommand AddGitUser { get; set; }
+        public ICommand EditGitUser { get; set; }
+        public ICommand DeleteGitUser { get; set; }
+        public ICommand AddGitRepo { get; set; }
+        public ICommand EditGitRepo { get; set; }
+        public ICommand DeleteGitRepo { get; set; }
+        public ICommand AddGitCommit { get; set; }
+        public ICommand EditGitCommit { get; set; }
+        public ICommand DeleteGitCommit { get; set; }
 
         private GitUser selectedUser;
 
@@ -32,8 +42,8 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                         ID = value.ID,
                         Name = value.Name,
                         EmailContact = value.EmailContact,
-                        Repos=value.Repos,
-                        Commits=value.Commits
+                        //Repos=value.Repos,
+                        //Commits=value.Commits
                     };
                     OnPropertyChanged();
                     (DeleteGitUser as RelayCommand).NotifyCanExecuteChanged();
@@ -58,7 +68,7 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                         Name = value.Name,
                         OwnerID = value.OwnerID,
                         //Owner = value.Owner,
-                        Commits = value.Commits,
+                        //Commits = value.Commits,
 
                     };
                     OnPropertyChanged();
@@ -97,23 +107,14 @@ namespace GVVL7Y_HFT_2021221.WPFClient
             }
         }
 
-        public ICommand AddGitUser { get; set; }
-        public ICommand EditGitUser { get; set; }
-        public ICommand DeleteGitUser { get; set; }        
-        public ICommand AddGitRepo { get; set; }
-        public ICommand EditGitRepo { get; set; }
-        public ICommand DeleteGitRepo { get; set; }
-        public ICommand AddGitCommit { get; set; }
-        public ICommand EditGitCommit { get; set; }
-        public ICommand DeleteGitCommit { get; set; }
 
         public MainWindowViewModel()
         {
             if (!IsInDesignMode)
             {
-                gitUsers = new RestCollection<GitUser>("http://localhost:39621/", "gituser", "hub");
-                gitRepos = new RestCollection<GitRepo>("http://localhost:39621/", "gitrepo", "hub");
-                gitCommits = new RestCollection<GitCommit>("http://localhost:39621/", "gitcommit", "hub");
+                gitUsers = new RestCollection<GitUser>("http://localhost:39621/", "gitUser", "hub");
+                gitRepos = new RestCollection<GitRepo>("http://localhost:39621/", "gitRepo", "hub" );
+                gitCommits = new RestCollection<GitCommit>("http://localhost:39621/", "gitCommit", "hub" );
 
                 AddGitUser = new RelayCommand(() =>
                 {
@@ -132,7 +133,7 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                 },
                 () => { return SelectedUser != null; }
                 );
-                selectedUser = new();
+                selectedUser = new GitUser();
 
                 AddGitRepo = new RelayCommand(() =>
                 {
@@ -151,7 +152,7 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                     //DeleteRepo(SelectedRepo);
                 },
                 () => { return SelectedRepo != null; });
-                selectedRepo = new();
+                selectedRepo = new GitRepo();
 
                 AddGitCommit = new RelayCommand(() =>
                 {
@@ -168,31 +169,9 @@ namespace GVVL7Y_HFT_2021221.WPFClient
                     gitCommits.Delete(SelectedCommit.ID);
                 },
                 () => { return SelectedCommit != null; });
-                selectedCommit = new();
+                selectedCommit = new GitCommit();
             }
         }
 
-
-        void DeleteRepo(GitRepo repo)
-        {
-            if (repo.Commits.Count!=0)
-            {
-                MessageBox.Show("Cannot delete -> repo has existing commits");
-            }
-            else gitRepos.Delete(repo.ID);
-        }
-
-        void DeleteUser(GitUser user)
-        {
-            if (user.Repos.Count != 0)
-            {
-                MessageBox.Show("Cannot delete -> user has existing repos");
-            }
-            else if (user.Commits.Count != 0)
-            {
-                MessageBox.Show("Cannot delete -> user has existing commits");
-            }
-            else gitUsers.Delete(user.ID);
-        }
     }
 }

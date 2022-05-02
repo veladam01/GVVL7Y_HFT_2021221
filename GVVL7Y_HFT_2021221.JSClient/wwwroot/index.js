@@ -11,13 +11,13 @@ function setupSignalR() {
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-    connection.on("UserCreated", (user, message) => {
+    connection.on("GitUserCreated", (user, message) => {
         getData();
     });
-    connection.on("UserDeleted", (user, message) => {
+    connection.on("GitUserDeleted", (user, message) => {
         getData();
     });
-    connection.on("UserUpdated", (user, message) => {
+    connection.on("GitUserUpdated", (user, message) => {
         getData();
     });
 
